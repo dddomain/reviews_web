@@ -1,29 +1,8 @@
 <?php
 
 //ベンダーのオートロードファイルを読み込む
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../lib/mysqli.php';
 
-function dbConnect(){
-  //接続
-
-  //環境変数に接続
-  $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
-  $dotenv->load();
-
-  //環境変数を取得・代入
-  $dbHost = $_ENV['DB_HOST'];
-  $dbUsername = $_ENV['DB_USERNAME'];
-  $dbPassword = $_ENV['DB_PASSWORD'];
-  $dbDatabase = $_ENV['DB_DATABASE'];
-
-  $link = mysqli_connect($dbHost, $dbUsername, $dbPassword, $dbDatabase);
-  echo 'データベースに接続できました。'.PHP_EOL;
-  if (!$link) {
-    echo 'Error: データベースに接続できません。'. mysqli_connect_error() . PHP_EOL;
-    exit;
-  }
-  return $link;
-}
 function dropTable($link){
   //テーブルの削除
   $dropTableSql = 'DROP TABLE IF EXISTS reviews;';
